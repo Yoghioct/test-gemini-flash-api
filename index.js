@@ -10,6 +10,7 @@ dotenv.config();
 
 const app = express();
 app.use(express.json());
+app.use(express.static('public'));
 
 // Inisialisasi Gemini 1.5 Flash
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
