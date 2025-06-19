@@ -30,23 +30,30 @@ h1 {
 }
 
 .message {
-  margin: 8px 0;
-  padding: 8px 12px;
-  border-radius: 20px;
-  max-width: 80%;
-  display: inline-block;
+  max-width: 70%;
+  word-wrap: break-word;
+  white-space: pre-wrap;
+  margin: 8px;
+  padding: 10px 14px;
+  border-radius: 18px;
 }
 
 .message.user {
-  background-color: #d1e7ff;
-  float: right;
-  text-align: right;
+  align-self: flex-end;
+  background-color: #cce0ff;
 }
 
 .message.bot {
-  background-color: #dff6dd;
-  float: left;
-  text-align: left;
+  align-self: flex-start;
+  background-color: #d4edda;
+}
+
+#chat-box {
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  height: 400px; 
+  padding: 12px;
 }
 
 form {

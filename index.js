@@ -2,13 +2,16 @@
 const express = require('express');
 const dotenv = require('dotenv');
 const multer = require('multer');
+const cors = require('cors');
 const fs = require('fs');
 const path = require('path');
 const { GoogleGenerativeAI, imageToGenerativePart } = require('@google/generative-ai');
 
+
 dotenv.config();
 
 const app = express();
+app.use(cors());
 app.use(express.json());
 app.use(express.static('public'));
 
@@ -29,6 +32,26 @@ app.post('/generate-text', async (req, res) => {
     res.json({ output: response.text() });
   } catch (error) {
     res.status(500).json({ error: error.message });
+  }
+});
+
+// Route penting!
+app.post('/api/chat', async (req, res) => {
+  const userMessage = req.body.message;
+
+  if (!userMessage) {
+    return res.status(400).json({ reply: "Message is required." });
+  }
+
+  try {
+    const result = await model.generateContent(userMessage);
+    const response = await result.response;
+    const text = response.text();
+
+    res.json({ reply: text });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ reply: "Something went wrong." });
   }
 });
 
